@@ -109,9 +109,23 @@ h2{margin:0;font-size:20px;font-weight:800;text-wrap:balance;letter-spacing:-.01
 .order{position:fixed;left:0;right:0;bottom:calc(66px + env(safe-area-inset-bottom,0px));z-index:6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 10px;background:linear-gradient(transparent,var(--bg) 40%)}
 .order a{display:flex;justify-content:center;align-items:center;gap:8px;max-width:688px;margin:0 auto;background:var(--leaf);color:var(--on-leaf);text-decoration:none;font-weight:800;border-radius:16px;height:52px;box-shadow:0 8px 18px rgba(31,143,79,.35)}
 .empty{color:var(--muted);text-align:center;padding:30px 0}
+.order a.in{background:var(--card);color:var(--leaf);box-shadow:var(--shadow);border:2px solid var(--leaf)}
+nav .cnt{position:relative}
+nav .cnt i{position:absolute;top:-4px;right:-9px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#d64545;color:#fff;font:800 11px/18px var(--f-body);font-style:normal;text-align:center}
+.cart{display:grid;gap:10px}
+.ci{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:10px;display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;align-items:center}
+.ci .thumb{width:64px;height:64px;border-radius:12px;cursor:pointer}
+.ci b{font-size:14px;line-height:1.3;display:block}
+.ci small{color:var(--muted);font-size:12.5px}
+.ci .row{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.qty{display:flex;align-items:center;gap:4px;background:var(--leaf-soft);border-radius:12px;padding:3px}
+.qty button{border:0;background:var(--card);color:var(--leaf);width:30px;height:30px;border-radius:9px;font:800 17px var(--f-body);cursor:pointer}
+.qty span{min-width:24px;text-align:center;font-weight:800}
+.ci .rm{border:0;background:none;color:var(--muted);cursor:pointer;padding:6px;display:grid}
+.clear{border:0;background:none;color:var(--muted);font:700 13px var(--f-body);cursor:pointer;justify-self:center;text-decoration:underline}
 .note{color:var(--muted);font-size:12.5px;text-align:center}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:7;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-nav .wrap{display:grid;grid-template-columns:repeat(3,1fr);height:66px}
+nav .wrap{display:grid;grid-template-columns:repeat(4,1fr);height:66px}
 nav button,nav a{border:0;background:none;color:var(--muted);font:700 12px var(--f-body);display:grid;justify-items:center;align-content:center;gap:3px;cursor:pointer;text-decoration:none}
 nav .on{color:var(--leaf)}
 nav .on svg{background:var(--leaf-soft);border-radius:10px;padding:3px;box-sizing:content-box}
@@ -147,10 +161,11 @@ details.block ul{margin-top:8px}
 </div></header>
 <div class="ticker" aria-hidden="true"><span>🌿 60 xil giyoh ekstrakti, Mastiqe saqichlari va spirulina &nbsp;·&nbsp; Buyurtma: Telegram @Ozoda_hijoma &nbsp;·&nbsp; Qo'llashdan oldin mutaxassis bilan maslahatlashing &nbsp;·&nbsp; 🌿 60 xil giyoh ekstrakti, Mastiqe saqichlari va spirulina &nbsp;·&nbsp; Buyurtma: Telegram @Ozoda_hijoma &nbsp;·&nbsp; Qo'llashdan oldin mutaxassis bilan maslahatlashing &nbsp;·&nbsp; </span></div>
 <main><div class="wrap" id="view"></div></main>
-<div class="order" id="order" hidden><a id="orderLink" href="https://t.me/Ozoda_hijoma" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg>Buyurtma berish</a></div>
+<div class="order" id="order" hidden><a id="orderLink" href="https://t.me/Ozoda_hijoma" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg><span id="orderTxt">Buyurtma berish</span></a></div>
 <nav><div class="wrap">
   <button id="navHome" class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9H4z"/><path d="M9 20v-6h6v6"/></svg>Bosh sahifa</button>
   <button id="navCat"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>Katalog</button>
+  <button id="navCart"><span class="cnt"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h11l2-8H6.2"/><circle cx="9.5" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg><i id="cartN" hidden></i></span>Savatcha</button>
   <a id="navOrder" href="https://t.me/Ozoda_hijoma" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg>Bog'lanish</a>
 </div></nav>
 
@@ -205,6 +220,28 @@ const BI = {
   qollash: '<path d="M8 3h8M9 3v5l-4 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-4-9V3"/><path d="M7 14h10"/>',
 };
 const stack = [];
+// Savatcha: {id: soni}, telefonda saqlanib qoladi
+let cart = {};
+try { cart = JSON.parse(localStorage.getItem("savatcha") || "{}"); } catch (e) {}
+Object.keys(cart).forEach(id => { if (!P[id]) delete cart[id]; });
+const cartN = document.getElementById("cartN"), orderLink = document.getElementById("orderLink"), orderTxt = document.getElementById("orderTxt");
+const CART_SVG = '<path d="M3 4h2l2.4 11h11l2-8H6.2"/><circle cx="9.5" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/>';
+const SEND_SVG = '<path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/>';
+function saveCart(){
+  try { localStorage.setItem("savatcha", JSON.stringify(cart)); } catch (e) {}
+  const n = Object.values(cart).reduce((a, b) => a + b, 0);
+  cartN.hidden = !n; cartN.textContent = n;
+}
+function orderText(){
+  const lines = Object.keys(cart).map((id, k) => `${k + 1}. ${nice(P[id].name)}${P[id].hajmi ? " (" + P[id].hajmi + ")" : ""} — ${cart[id]} ta`);
+  return "Assalomu alaykum! Buyurtma bermoqchiman:\n" + lines.join("\n");
+}
+function setOrderBtn(state){
+  orderLink.classList.remove("in");
+  if (state.v === "p" && cart[state.id]) { orderLink.classList.add("in"); orderTxt.textContent = `Savatchada: ${cart[state.id]} ta · Savatchaga o'tish`; orderLink.firstElementChild.innerHTML = CART_SVG; }
+  else if (state.v === "p") { orderTxt.textContent = "Savatchaga qo'shish"; orderLink.firstElementChild.innerHTML = CART_SVG; }
+  else { orderTxt.textContent = "Buyurtma berish"; orderLink.firstElementChild.innerHTML = SEND_SVG; }
+}
 
 function card(id){
   const p = P[id];
@@ -215,6 +252,7 @@ const row = c => `<button class="cat-row" data-c="${c.id}"><span class="ic">${sv
 function setNav(which){
   document.getElementById("navHome").classList.toggle("on", which==="home");
   document.getElementById("navCat").classList.toggle("on", which==="cats");
+  document.getElementById("navCart").classList.toggle("on", which==="cart");
 }
 const LBL = ["Reklama", "Foydasi", "Польза"];
 function gallery(id){
@@ -226,7 +264,8 @@ function gallery(id){
 }
 function render(state){
   hdr.classList.toggle("has-back", stack.length > 0);
-  order.hidden = state.v !== "p";
+  order.hidden = !(state.v === "p" || (state.v === "cart" && Object.keys(cart).length));
+  setOrderBtn(state);
   if (tg) { stack.length ? tg.BackButton.show() : tg.BackButton.hide(); }
   if (state.v === "home"){
     setNav("home");
@@ -264,6 +303,14 @@ function render(state){
       const k = Math.round(sl.scrollLeft / sl.clientWidth);
       dots.forEach((d, j) => d.classList.toggle("on", j === k)); lbl.textContent = `${k + 1} / ${dots.length}`;
     }, {passive:true});
+  } else if (state.v === "cart"){
+    setNav("cart");
+    const ids = Object.keys(cart);
+    view.innerHTML = `<h2>Savatcha</h2>` + (ids.length ? `<div class="cart">${ids.map(id => `<div class="ci"><span data-p="${id}">${thumb(id)}</span><div><b>${esc(nice(P[id].name))}</b>${P[id].hajmi ? `<small>${esc(P[id].hajmi)}</small>` : ""}
+      <div class="row"><div class="qty"><button data-q="${id}" data-d="-1" aria-label="Kamaytirish">−</button><span>${cart[id]}</span><button data-q="${id}" data-d="1" aria-label="Ko'paytirish">+</button></div>
+      <button class="rm" data-q="${id}" data-d="0" aria-label="O'chirish">${svg('<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',20)}</button></div></div></div>`).join("")}</div>
+      <p class="note">Narxi va yetkazib berish bo'yicha javob Telegram orqali yoziladi.</p><button class="clear" data-q="all">Savatchani tozalash</button>`
+      : `<p class="empty">Savatcha bo'sh. Mahsulot sahifasida "Savatchaga qo'shish" tugmasini bosing.</p>`);
   } else if (state.v === "s"){
     const t = norm(state.q);
     const ids = ALL.filter(id => P[id].hay.includes(t));
@@ -281,7 +328,14 @@ document.getElementById("back").onclick = back;
 if (tg) tg.BackButton.onClick(back);
 document.getElementById("navHome").onclick = () => { stack.length = 0; q.value = ""; cur = {v:"home"}; render(cur); };
 document.getElementById("navCat").onclick = () => { stack.length = 0; q.value = ""; cur = {v:"cats"}; render(cur); };
+document.getElementById("navCart").onclick = () => { stack.length = 0; q.value = ""; cur = {v:"cart"}; render(cur); };
 view.addEventListener("click", e => {
+  const m = e.target.closest("[data-q]");
+  if (m) {
+    if (m.dataset.q === "all") cart = {};
+    else { const n = +m.dataset.d && (cart[m.dataset.q] || 0) + +m.dataset.d; if (n > 0) cart[m.dataset.q] = n; else delete cart[m.dataset.q]; }
+    saveCart(); render(cur); return;
+  }
   const b = e.target.closest("[data-p],[data-c],[data-go]"); if (!b || b.style.cursor === "default") return;
   if (b.dataset.p) go({v:"p", id:b.dataset.p});
   else if (b.dataset.c) go({v:"c", id:b.dataset.c});
@@ -292,9 +346,23 @@ q.addEventListener("input", () => {
   if (!t) { stack.length = 0; cur = {v:"home"}; render(cur); return; }
   if (cur.v === "s") { cur = {v:"s", q:t}; render(cur); } else go({v:"s", q:t});
 });
-for (const a of [document.getElementById("orderLink"), document.getElementById("navOrder")]) {
-  a.addEventListener("click", e => { if (tg) { e.preventDefault(); tg.openTelegramLink(a.href); } });
-}
+const navOrder = document.getElementById("navOrder");
+navOrder.addEventListener("click", e => { if (tg) { e.preventDefault(); tg.openTelegramLink(navOrder.href); } });
+orderLink.addEventListener("click", e => {
+  e.preventDefault();
+  if (cur.v === "p") {
+    if (cart[cur.id]) { stack.length = 0; cur = {v:"cart"}; render(cur); return; }
+    cart[cur.id] = 1; saveCart(); setOrderBtn(cur);
+    if (tg) try { tg.HapticFeedback.notificationOccurred("success"); } catch (e) {}
+    return;
+  }
+  // Buyurtma: ro'yxat tayyor matn bo'lib bog'lanish odamiga yuboriladi
+  // Buyurtma ro'yxati tayyor matn bo'lib chatga yoziladi (zaxira uchun nusxalanadi ham)
+  const txt = orderText(), url = `${navOrder.href}?text=${encodeURIComponent(txt)}`;
+  try { navigator.clipboard.writeText(txt).catch(() => {}); } catch (e) {}
+  if (tg) tg.openTelegramLink(url); else window.open(url, "_blank");
+});
+saveCart();
 render(cur);
 }
 const img = f => `api/rasm?f=${encodeURIComponent(f)}`;
