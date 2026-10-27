@@ -117,7 +117,7 @@ nav .on{color:var(--leaf)}
 nav .on svg{background:var(--leaf-soft);border-radius:10px;padding:3px;box-sizing:content-box}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--leaf);outline-offset:2px}
 
-.prod .ph{height:auto;aspect-ratio:3/4;padding:0;background:none}
+.prod .ph{height:auto;aspect-ratio:1;padding:0;background:none}
 .thumb{display:block;width:100%;height:100%;background-image:url(shishalar.webp);background-size:1000% 700%;background-repeat:no-repeat}
 .cat-row .thumbs i{display:block;width:36px;height:48px;margin-left:3px;border-radius:8px}
 .hero .bottles i{display:block;width:31%;height:auto;aspect-ratio:3/4;border-radius:12px;box-shadow:0 8px 14px rgba(0,0,0,.25)}
@@ -181,7 +181,7 @@ const norm = s => s.toLowerCase().replace(/[ʻʼ'’`‘]/g, "").replace(/./g, c
 DATA.products.forEach(p => { p.hay = norm([p.name, p.name_ru, p.tarkibi, ...p.foydasi, ...p.foydasi_ru].join(" ")); });
 C.forEach(c => { c.hay = norm(c.title); });
 const pos = i => `background-position:${(i % 10) / 9 * 100}% ${Math.floor(i / 10) / 6 * 100}%`;
-const thumb = id => P[id].thumb ? `<i class="thumb" style="background-image:url(${img(P[id].thumb)});background-size:cover;background-position:center"></i>` : `<i class="thumb" style="${pos(P[id].i)}"></i>`;
+const thumb = id => `<i class="thumb" style="background-image:url(${P[id].imgs ? img(P[id].imgs[0]) : 'k'+id+'.webp'});background-size:cover;background-position:center"></i>`;
 const svg = (d, s = 28) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 const ICON = {
   oshqozon: '<path d="M9 3v4c0 2-3 2.5-3 6a6 6 0 0 0 6 6c4 0 6-2.5 6-5 0-2.5-2-3.5-4-3.5S11 9 11 7V3"/><path d="M12 19v2"/>',
@@ -208,7 +208,7 @@ const stack = [];
 
 function card(id){
   const p = P[id];
-  return `<button class="prod" data-p="${id}"><span class="ph">${p.hajmi ? `<span class="ml">${esc(p.hajmi)}</span>` : ""}${thumb(id)}</span><span class="t"><b>${esc(nice(p.name))}</b><small>${esc(p.foydasi[0] || "")}</small><span class="go">${svg('<path d="M5 12h14M13 6l6 6-6 6"/>',16)}</span></span></button>`;
+  return `<button class="prod" data-p="${id}"><span class="ph">${thumb(id)}</span><span class="t"><b>${esc(nice(p.name))}</b><small>${esc(p.foydasi[0] || "")}</small><span class="go">${svg('<path d="M5 12h14M13 6l6 6-6 6"/>',16)}</span></span></button>`;
 }
 const tile = c => `<button class="cat" data-c="${c.id}"><span class="ic">${svg(ICON[c.id] || BI.tarkib)}</span><b>${esc(c.title.split(",")[0])}</b></button>`;
 const row = c => `<button class="cat-row" data-c="${c.id}"><span class="ic">${svg(ICON[c.id] || BI.tarkib, 26)}</span><span class="t"><b>${esc(c.title)}</b><small>${c.items.length} ta mahsulot</small></span><span class="thumbs">${c.items.slice(0,3).map(thumb).join("")}</span></button>`;
