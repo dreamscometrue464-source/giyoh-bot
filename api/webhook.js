@@ -68,16 +68,17 @@ function createBot({ token, webAppUrl, base }) {
 
   // /qosh qadamlari
   const STEPS = [
-    { k: "reklama", photo: true, q: "1/10. Reklama rasmini yuboring." },
-    { k: "foyuz", photo: true, skip: true, q: "2/10. «Фойдаси» rasmini (o'zbekcha) yuboring." },
-    { k: "foyru", photo: true, skip: true, q: "3/10. «Польза» rasmini (ruscha) yuboring." },
-    { k: "shisha", photo: true, skip: true, q: "4/10. Kartochka uchun mahsulot rasmini yuboring (o'tkazsangiz, reklama rasmi qo'yiladi)." },
-    { k: "name", q: "5/10. Mahsulot nomini yozing. Masalan: Долчин — Корица" },
-    { k: "hajmi", skip: true, q: "6/10. Hajmini yozing. Masalan: 150 мл" },
-    { k: "tarkibi", skip: true, q: "7/10. Tarkibini yozing." },
-    { k: "istemoli", skip: true, q: "8/10. Iste'mol qilish tartibini yozing." },
-    { k: "foydasi", skip: true, q: "9/10. Foydasini yozing, har bir foydasi alohida qatorda." },
-    { k: "bolim", q: "10/10. Bo'limni tanlang (bir nechta tanlash mumkin), keyin «✅ Saqlash» ni bosing." },
+    { k: "reklama", photo: true, q: "1/11. Reklama rasmini yuboring." },
+    { k: "foyuz", photo: true, skip: true, q: "2/11. «Фойдаси» rasmini (o'zbekcha) yuboring." },
+    { k: "foyru", photo: true, skip: true, q: "3/11. «Польза» rasmini (ruscha) yuboring." },
+    { k: "shisha", photo: true, skip: true, q: "4/11. Kartochka uchun mahsulot rasmini yuboring (o'tkazsangiz, reklama rasmi qo'yiladi)." },
+    { k: "name", q: "5/11. Mahsulot nomini yozing. Masalan: Долчин — Корица" },
+    { k: "hajmi", skip: true, q: "6/11. Hajmini yozing. Masalan: 150 мл" },
+    { k: "tarkibi", skip: true, q: "7/11. Tarkibini yozing." },
+    { k: "istemoli", skip: true, q: "8/11. Iste'mol qilish tartibini yozing." },
+    { k: "foydasi", skip: true, q: "9/11. Foydasini yozing, har bir foydasi alohida qatorda." },
+    { k: "narx", skip: true, q: "10/11. Narxini so'mda yozing, faqat raqam. Masalan: 25000" },
+    { k: "bolim", q: "11/11. Bo'limni tanlang (bir nechta tanlash mumkin), keyin «✅ Saqlash» ni bosing." },
   ];
 
   async function ask(chatId, st) {
@@ -87,8 +88,13 @@ function createBot({ token, webAppUrl, base }) {
       const rows = [];
       for (let i = 0; i < categories.length; i += 2)
         rows.push(categories.slice(i, i + 2).map(c => ((st.d.c || []).includes(c.id) ? "✅ " : "") + c.title));
+      rows.unshift([SAVE]);
       rows.push([NEWCAT], [SAVE, CANCEL]);
-      return send(chatId, step.q, kb(rows));
+      const tanlangan = categories.filter(c => (st.d.c || []).includes(c.id)).map(c => "✅ " + c.title);
+      const matn = tanlangan.length
+        ? `Tanlangan bo'limlar:\n${tanlangan.join("\n")}\n\nYana tanlashingiz mumkin. Tayyor bo'lsa «✅ Saqlash» ni bosing.`
+        : step.q;
+      return send(chatId, matn, kb(rows));
     }
     return send(chatId, step.q, kb(step.skip ? [[SKIP, CANCEL]] : [[CANCEL]]));
   }
@@ -101,7 +107,7 @@ function createBot({ token, webAppUrl, base }) {
     const imgs = [d.reklama, d.foyuz, d.foyru].filter(Boolean);
     extra.push({
       id, name: d.name, name_ru: "", tarkibi: d.tarkibi || "", istemoli: d.istemoli || "", ogoh: "",
-      hajmi: d.hajmi || "", muddati: "",
+      hajmi: d.hajmi || "", muddati: "", narx: parseInt(String(d.narx || "").replace(/\D/g, ""), 10) || 0,
       foydasi: (d.foydasi || "").split("\n").map(s => s.trim()).filter(Boolean),
       foydasi_ru: [], c: d.c, imgs, thumb: d.shisha || d.reklama,
     });
